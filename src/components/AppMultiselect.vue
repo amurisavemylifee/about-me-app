@@ -50,15 +50,17 @@
       <div class="input_wrapper">
         <input type="text" class="input" v-model="searchValue" />
       </div>
-      <div class="option" v-for="item in filteredList" :key="item.value">
-        <input
-          type="checkbox"
-          :id="item.value"
-          name="group"
-          :value="item.value"
-          v-model="value"
-        />
-        <label :for="item.value">{{ item.name }}</label>
+      <div class="options-wrapper">
+        <div class="option" v-for="item in filteredList" :key="item.value">
+          <input
+            type="checkbox"
+            :id="item.value"
+            name="group"
+            :value="item.value"
+            v-model="value"
+          />
+          <label :for="item.value">{{ item.name }}</label>
+        </div>
       </div>
     </div>
   </div>
@@ -121,6 +123,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.options-wrapper {
+  max-height: 200px;
+  overflow-y: scroll;
+}
 .input_wrapper {
   position: relative;
   margin-bottom: 10px;
