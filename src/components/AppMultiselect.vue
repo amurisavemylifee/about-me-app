@@ -44,7 +44,7 @@
       </g>
     </svg>
     <div class="label">{{ label }}</div>
-    <input type="text" class="input" readonly :value="modelValue" />
+    <input type="text" class="input" readonly :value="translatedValue" />
     <small v-if="errorText">{{ errorText }}</small>
     <div :class="['dropdown', { 'dropdown--hidden': !isOpened }]" @click.stop>
       <div class="input_wrapper">
@@ -68,6 +68,7 @@
   
 <script>
 import { ref, watch, computed } from "vue";
+import { useInterestsMap } from "@/use/useInterestsMap.js";
 
 export default {
   name: "AppMultiselect",
@@ -117,6 +118,7 @@ export default {
       value,
       searchValue,
       filteredList,
+      ...useInterestsMap(value),
     };
   },
 };

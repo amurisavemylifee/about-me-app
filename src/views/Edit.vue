@@ -15,15 +15,7 @@
     ></app-input>
     <app-multiselect
       label="Выберите ваши интересы"
-      :options="[
-        { name: 'Футбол', value: 'Football' },
-        { name: 'Баскетбол', value: 'Basketball' },
-        { name: 'Бейсбол', value: 'Baseball' },
-        { name: 'Волейбол ', value: 'Volleyball' },
-        { name: 'Гребля', value: 'Rowing' },
-        { name: 'Регби', value: 'Rugby' },
-        { name: 'Крикет', value: 'Cricket' },
-      ]"
+      :options="interestsMap"
       v-model="interests"
       :error-text="iError"
     ></app-multiselect>
@@ -49,6 +41,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import AppMultiselect from "@/components/AppMultiselect.vue";
 import { ref, computed } from "vue";
+import { useInterestsMap } from "@/use/useInterestsMap.js";
 
 export default {
   components: { AppInput, AppButton, AppMultiselect },
@@ -69,6 +62,7 @@ export default {
       age.value = "";
       nError.value = "";
       aError.value = "";
+      iError.value = "";
       interests.value.splice(0, interests.value.length);
     }
 
@@ -80,15 +74,17 @@ export default {
       nError.value = validator(name.value, "required", "name");
       aError.value = validator(age.value, "required");
       iError.value = validator(interests.value.length, "required");
+
       if (!nError.value && !aError.value && !iError.value) {
         store.commit("setData", {
           name: name.value,
           age: age.value,
           interests: interests.value,
         });
-        router.push("/preview");
+        router.replace("/preview");
       }
     }
+
     function validator(value, ...validations) {
       let errorMessage = "";
       if (validations.indexOf("required") !== -1) {
@@ -114,6 +110,7 @@ export default {
       iError,
       saveForm,
       interests,
+      ...useInterestsMap(),
     };
   },
 };

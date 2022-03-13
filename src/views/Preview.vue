@@ -12,7 +12,7 @@
   <div class="title">Мои интересы</div>
   <ul>
     <li
-      v-for="item in $store.state.aboutMeData.interests"
+      v-for="item in translatedValue"
       :key="item.value"
       class="interests-list-item"
     >
@@ -29,6 +29,8 @@
 
 <script>
 import AppButton from "@/components/AppButton.vue";
+import { useInterestsMap } from "@/use/useInterestsMap.js";
+import { useStore } from "vuex";
 
 export default {
   name: "Preview",
@@ -36,6 +38,8 @@ export default {
     AppButton,
   },
   setup() {
+    let store = useStore();
+
     function ageCheck(age) {
       if (age.slice(-2, -1)[0] == "1") {
         return "лет";
@@ -48,6 +52,7 @@ export default {
     }
     return {
       ageCheck,
+      ...useInterestsMap(store.getters.getData.interests),
     };
   },
 };
