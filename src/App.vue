@@ -30,10 +30,7 @@ a {
 }
 ul,
 ol {
-  list-style: circle;
-}
-li {
-  margin-left: 25px;
+  list-style: none;
 }
 button {
   color: inherit;

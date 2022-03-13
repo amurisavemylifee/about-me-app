@@ -1,13 +1,14 @@
 <template>
-  <div class="title">Мои данные</div>
-  <div class="card">
-    {{
-      $store.state.aboutMeData.name +
-      "   " +
-      $store.state.aboutMeData.age +
-      " " +
-      ageCheck($store.state.aboutMeData.age)
-    }}
+  <div class="preview-wrapper">
+    <div class="title">Мои данные</div>
+    <div class="card">
+      {{
+        $store.state.aboutMeData.name +
+        "  , " +
+        $store.state.aboutMeData.age +
+        " "
+      }}<strong>{{ ageCheck($store.state.aboutMeData.age) }}</strong>
+    </div>
   </div>
   <div class="title">Мои интересы</div>
   <ul>
@@ -59,10 +60,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.preview-wrapper {
+  font-size: 24px;
+}
 .card {
   margin-bottom: 16px;
 }
 .interests-list-item {
-  padding: 0 0 25px 0;
+  text-align: center;
+  padding: 15px 0;
+  border-radius: 10px;
+  border: 1px #f1f1f1 solid;
+  margin-bottom: 5px;
+}
+strong {
+  font-weight: bold;
 }
 </style>
