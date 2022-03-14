@@ -44,7 +44,12 @@
       </g>
     </svg>
     <div class="label">{{ label }}</div>
-    <input type="text" class="input" readonly :value="translatedValue" />
+    <input
+      type="text"
+      class="input"
+      readonly
+      :value="translatedValue.join(', ')"
+    />
     <small v-if="errorText">{{ errorText }}</small>
     <div :class="['dropdown', { 'dropdown--hidden': !isOpened }]" @click.stop>
       <div class="input_wrapper">
@@ -59,7 +64,7 @@
             :value="item.value"
             v-model="value"
           />
-          <label :for="item.value">{{ item.name }}</label>
+          <label :for="item.value">{{ "  " + item.name }}</label>
         </div>
       </div>
     </div>
@@ -67,7 +72,7 @@
 </template>
   
 <script>
-import { ref, watch, computed } from "vue";
+import { ref, watch, computed, onMounted } from "vue";
 import { useInterestsMap } from "@/use/useInterestsMap.js";
 
 export default {
@@ -113,6 +118,23 @@ export default {
     watch(value, (newValue) => {
       emit("update:modelValue", newValue);
     });
+
+    onMounted(() => {
+      let input_wrapper = document
+        .querySelector(".dropdown")
+        .closest(".input_wrapper");
+      let dropdown = document.querySelector(".dropdown");
+
+      input_wrapper.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+      document.addEventListener("click", () => {
+        if (!dropdown.classList.contains("dropdown--hidden")) {
+          isOpened.value = false;
+        }
+      });
+    });
+
     return {
       isOpened,
       value,

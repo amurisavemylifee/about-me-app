@@ -4,7 +4,7 @@
     <div class="card">
       {{
         $store.state.aboutMeData.name +
-        "  , " +
+        ", " +
         $store.state.aboutMeData.age +
         " "
       }}<strong>{{ ageCheck($store.state.aboutMeData.age) }}</strong>

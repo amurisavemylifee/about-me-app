@@ -6,7 +6,7 @@ export function useInterestsMap(value) {
         { name: 'Футбол', value: 'Football' },
         { name: 'Баскетбол', value: 'Basketball' },
         { name: 'Бейсбол', value: 'Baseball' },
-        { name: 'Волейбол ', value: 'Volleyball' },
+        { name: 'Волейбол', value: 'Volleyball' },
         { name: 'Гребля', value: 'Rowing' },
         { name: 'Регби', value: 'Rugby' },
         { name: 'Крикет', value: 'Cricket' },

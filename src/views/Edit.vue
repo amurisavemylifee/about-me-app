@@ -4,7 +4,7 @@
     <app-input
       input-type="text"
       input-label="Имя"
-      v-model="name"
+      v-model.trim="name"
       :error-text="nError"
     ></app-input>
     <app-input
@@ -71,8 +71,8 @@ export default {
     let iError = ref("");
 
     function saveForm() {
-      nError.value = validator(name.value, "required", "name");
-      aError.value = validator(age.value, "required");
+      nError.value = validator(name.value, "required", "name", "min2");
+      aError.value = validator(age.value, "required", "age");
       iError.value = validator(interests.value.length, "required");
 
       if (!nError.value && !aError.value && !iError.value) {
@@ -88,7 +88,7 @@ export default {
     function validator(value, ...validations) {
       let errorMessage = "";
       if (validations.indexOf("required") !== -1) {
-        if (!value) {
+        if (value == "") {
           errorMessage = "Это обязательное поле";
         }
       }
@@ -97,9 +97,20 @@ export default {
           errorMessage = "В имени присутствуют недопустимые символы";
         }
       }
+      if (validations.indexOf("age") !== -1) {
+        if (!/^[0-9]*$/g.test(value)) {
+          errorMessage = "В возрасте присутствуют недопустимые символы";
+        }
+      }
+      if (validations.indexOf("min2") !== -1) {
+        if (value.length < 2) {
+          errorMessage = "Имя не может быть короче 2х символов";
+        }
+      }
 
       return errorMessage;
     }
+
     return {
       name,
       age,
